@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const User = require('../models/user.model');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken'); // 🚀 NEW: Import the JWT library
 
 // 1. REGISTER NEW USER
 router.post('/register', async (req, res) => {
@@ -26,12 +27,12 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// 2. LOGIN USER (With Bcrypt Verification)
+// 2. LOGIN USER (With Bcrypt Verification & JWT Generation)
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
     
-    // Find user by email only (cannot query by plain-text password anymore)
+    // Find user by email only
     const user = await User.findOne({ email }).maxTimeMS(2000);
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" });
@@ -43,12 +44,26 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
     
-    console.log("🔓 User logged in successfully:", email);
+    console.log("🔓 Password verified for:", email);
+
+    // 🚀 NEW: Generate the VIP Wristband (JWT Token)
+    // We sign it securely using the secret key hidden in your .env file
+    const token = jwt.sign(
+        { userId: user._id }, 
+        process.env.JWT_SECRET, 
+        { expiresIn: '7d' } // Wristband stays valid for 7 days
+    );
+
+    console.log("🎟️ JWT Token generated for session");
     
-    // Match your frontend fetch logic by returning the confirmed user details
+    // 🚀 NEW: Send the token and user details back to the frontend
     res.status(200).json({ 
       message: "Login successful", 
-      email: user.email 
+      token: token,
+      user: {
+          id: user._id,
+          email: user.email
+      }
     });
 
   } catch (err) {

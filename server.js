@@ -5,9 +5,13 @@ require('dotenv').config();
 
 const app = express();
 
-// 1. MIDDLEWARE
+// 1. PRODUCTION-READY CORS MIDDLEWARE
 app.use(cors({
-  origin: ['http://127.0.0.1:5500', 'http://localhost:5500'],
+  origin: [
+    'http://127.0.0.1:5500', 
+    'http://localhost:5500',
+    /\.netlify\.app$/ // 🚀 This regex allows ANY netlify domain you generate to talk to your backend!
+  ],
   credentials: true
 }));
 
@@ -26,10 +30,10 @@ app.use('/user', userRouter);
 
 // Root Route
 app.get('/', (req, res) => {
-  res.send('Atelier Backend is live! 🚌 (Traveling Mode)');
+  res.send('Atelier Production Backend is live and secure! ✦');
 });
 
-// 4. RESILIENT STARTUP LOGIC
+// 4. RESILIENT STARTUP LOGIC (Optimized for cloud environment ports)
 const PORT = process.env.PORT || 5001;
 const uri = process.env.MONGO_URI;
 
@@ -37,10 +41,10 @@ const uri = process.env.MONGO_URI;
 mongoose.set('bufferCommands', false);
 
 // START SERVER IMMEDIATELY
-// This prevents the "Cannot reach server" error in your browser
+// This prevents boot timeouts on cloud hosting providers like Render
 app.listen(PORT, () => {
   console.log(`🚀 Server listening on port ${PORT}`);
-  console.log(`📡 Attempting to connect to MongoDB...`);
+  console.log(`📡 Attempting to connect to MongoDB Cloud Cluster...`);
 });
 
 // CONNECT TO DATABASE IN BACKGROUND
@@ -53,5 +57,4 @@ mongoose.connect(uri, {
   .catch(err => {
     console.log("❌ MongoDB Connection Error (Check IP Whitelist or Network):");
     console.error(err.message);
-    // We don't call process.exit(1) here so the server stays alive for debugging
   });
