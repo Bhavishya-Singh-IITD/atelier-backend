@@ -13,7 +13,16 @@
 
 > **Atelier** is a premium, full-stack e-commerce platform designed for art lovers to discover, purchase, and list original artwork. The entire application runs on a **State-Driven Architecture** and features a minimalist, luxury glassmorphism user interface.
 
-*(Replace this text by dragging and dropping your screenshot of the website here while in GitHub edit mode)*
+<img width="1278" height="763" alt="Screenshot 2026-06-10 at 12 31 32 AM" src="https://github.com/user-attachments/assets/a35b3c27-ba6b-41de-8688-b865a21f28fb" />
+<img width="1280" height="767" alt="Screenshot 2026-06-10 at 12 32 40 AM" src="https://github.com/user-attachments/assets/3c49866b-e89e-4122-be08-7be22204ce23" />
+<img width="1280" height="763" alt="Screenshot 2026-06-10 at 12 32 14 AM" src="https://github.com/user-attachments/assets/4c624449-975f-4871-a8a7-aae3c5f9560c" />
+<img width="1280" height="764" alt="Screenshot 2026-06-10 at 12 31 59 AM" src="https://github.com/user-attachments/assets/724082dd-3116-439b-aa28-82e295fa1899" />
+<img width="1279" height="762" alt="Screenshot 2026-06-10 at 12 32 27 AM" src="https://github.com/user-attachments/assets/f3549c2d-ca9f-43f2-8bf3-e7ca6ebbbcc3" />
+
+
+
+
+
 
 ### 🔗 Live Links
 * **Live Demo:** [https://atelier-marketplace.netlify.app](https://atelier-marketplace.netlify.app/index.html)
